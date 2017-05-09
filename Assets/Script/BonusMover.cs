@@ -36,47 +36,63 @@ public class BonusMover : MonoBehaviour
         {
             currentChild = transform.GetChild(i).gameObject;
             ScrollEnemy(currentChild);
-            if (currentChild.transform.position.x < -40.0f)
+            if (currentChild.transform.position.x < -20.0f)
             {
                 Destroy(currentChild);
             }
         }
 
+
     }
     void ScrollEnemy(GameObject currentEnemy)
     {
-        currentEnemy.transform.position -= Vector3.right * (scrollSpeed * Time.deltaTime);
-        if (floataround < 500)
+		Vector2 pos;
+		pos = currentEnemy.transform.position;pos.x -= scrollSpeed * Time.deltaTime;
+		currentEnemy.transform.position = pos;
+		if (floataround < 100)
         {
-            Debug.Log("yukari");
-            currentEnemy.transform.position += Vector3.up * (scrollSpeed * Time.deltaTime)/2;
+			pos.y += (scrollSpeed * Time.deltaTime);
+			currentEnemy.transform.position = pos;
             
         }
         
         
-        if (floataround <= 1000 && floataround > 500)
+        if (floataround <= 350 && floataround > 100)
         {
-            Debug.Log("assagi");
+            
             currentEnemy.transform.position -= Vector3.up * (scrollSpeed * Time.deltaTime)/2;
             
         }
 
-        if (floataround == 1000)
+        if (floataround >350)
         {
             floataround = 0;
 
         }
         floataround++;
 
-    }
 
+    }
     void GenerateRandomChallenge()
     {
+		challangesSpawnPoint.position = new Vector3 (challangesSpawnPoint.position.x, challangesSpawnPoint.position.y, challangesSpawnPoint.position.z);
+
+
         GameObject newChallenge = Instantiate(challenges[Random.Range(0, challenges.Length)], challangesSpawnPoint.position, Quaternion.identity) as GameObject;
 
         newChallenge.transform.parent = transform;
-        counter = 2.0f;
+        counter = 4.0f;
 
     }
 
-}
+
+
+
+
+	
+	
+	}
+
+
+
+
